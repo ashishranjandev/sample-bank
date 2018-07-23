@@ -35,7 +35,7 @@ public class Account {
 	private Timestamp createdTime;
 	
 	@Column(name = "BALANCE")
-	private Integer balance;
+	private Double balance;
 	
 	@OneToMany(cascade={CascadeType.REMOVE}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "ACCOUNT_NUMBER", insertable = false, updatable = false)
@@ -73,11 +73,11 @@ public class Account {
 		this.createdTime = createdTime;
 	}
 
-	public Integer getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Integer balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

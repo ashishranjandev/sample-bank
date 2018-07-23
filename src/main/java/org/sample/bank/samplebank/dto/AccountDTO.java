@@ -16,11 +16,11 @@ public class AccountDTO {
 	private String address;
 
 	@Min(500)
-	private Integer balance;
+	private Double balance;
 	
 	public AccountDTO() {}
 
-	public AccountDTO(Integer accountNumber, String name, String address, Integer balance) {
+	public AccountDTO(Integer accountNumber, String name, String address, Double balance) {
 		super();
 		this.accountNumber = accountNumber;
 		this.name = name;
@@ -52,11 +52,11 @@ public class AccountDTO {
 		this.address = address;
 	}
 
-	public Integer getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Integer balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 	

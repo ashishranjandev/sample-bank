@@ -1,11 +1,15 @@
 package org.sample.bank.samplebank.dto;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
+import org.sample.bank.samplebank.commons.BankConstants;
 import org.sample.bank.samplebank.enums.TransactionStatus;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class TransactionRequestDTO {
 
@@ -21,6 +25,9 @@ public class TransactionRequestDTO {
 	@Null
 	private Timestamp createdTime;
 	
+	@Null
+	private String createdDate;
+	
 	private Timestamp scheduledTime;
 	
 	private String description;
@@ -32,13 +39,13 @@ public class TransactionRequestDTO {
 	private TransactionStatus transactionStatus;
 	
 	@NotNull
-	private Integer amount;
+	private Double amount;
 	
 	public TransactionRequestDTO() {}
 	
 	public TransactionRequestDTO(Integer transactionId, Integer accountNumber, Integer beneficiaryId,
 			Timestamp createdTime, Timestamp scheduledTime, String description, Boolean isInstant,
-			TransactionStatus transactionStatus, Integer amount) {
+			TransactionStatus transactionStatus, Double amount) {
 		super();
 		this.transactionId = transactionId;
 		this.accountNumber = accountNumber;
@@ -59,6 +66,7 @@ public class TransactionRequestDTO {
 		this.transactionId = transactionId;
 	}
 
+	@JsonIgnore
 	public Integer getAccountNumber() {
 		return accountNumber;
 	}
@@ -68,13 +76,23 @@ public class TransactionRequestDTO {
 	}
 	
 	
-
+	@JsonIgnore
 	public Timestamp getCreatedTime() {
 		return createdTime;
 	}
 
 	public void setCreatedTime(Timestamp createdTime) {
 		this.createdTime = createdTime;
+		this.createdDate = BankConstants.DATE_TIME_FORMAT.format(new Date(createdTime.getTime()));
+	}
+	
+
+	public String getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public Timestamp getScheduledTime() {
@@ -117,11 +135,11 @@ public class TransactionRequestDTO {
 		this.beneficiaryId = beneficiaryId;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 

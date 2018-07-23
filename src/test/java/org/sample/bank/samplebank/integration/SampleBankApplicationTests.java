@@ -4,12 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.sample.bank.samplebank.SampleBankApplication;
+import org.sample.bank.samplebank.commons.BankConstants;
 import org.sample.bank.samplebank.config.ServiceTestConfiguration;
 import org.sample.bank.samplebank.controller.AccountController;
 import org.sample.bank.samplebank.dto.AccountDTO;
@@ -42,7 +44,7 @@ public class SampleBankApplicationTests {
 	
 	@Before
 	public void init() {
-		accountDTO = new AccountDTO(null, "John", "SF", 2000);
+		accountDTO = new AccountDTO(null, "John", "SF", 2000.00);
 		beneficiaryDTO = new BeneficiaryDTO(null, 7882, "IFSC2012");
 		beneficiaryDTO2 = new BeneficiaryDTO(null, 7881, "IFSC2022");
 	}
@@ -84,7 +86,7 @@ public class SampleBankApplicationTests {
 		list = getResponse.getBody();
 		assertEquals(list.size(), 1);
 	
-		trDTO = new TransactionRequestDTO(null, accountNumber, beneficiaryId, null, null, null, true, null, 200);
+		trDTO = new TransactionRequestDTO(null, accountNumber, beneficiaryId, null, null, null, true, null, 200.00);
 		ResponseEntity<TransactionRequestDTO> response2 = accountController.createTransactionRequest(accountNumber, trDTO);
 		assertEquals(response2.getStatusCode().value(), HttpStatus.CREATED.value());
 		
@@ -93,6 +95,13 @@ public class SampleBankApplicationTests {
 		assertEquals(getResponse2.getStatusCode().value(), HttpStatus.OK.value());
 		List<TransactionRequestDTO> trDTOs = getResponse2.getBody().getTransactionRequests();
 		assertEquals(trDTOs.size(), 1);
+		
+		Calendar calendar = Calendar.getInstance();         
+		calendar.add(Calendar.YEAR, 1);
+		ResponseEntity<Double> dResponse = accountController.getFutureBalance(accountNumber, 
+				BankConstants.DATE_TIME_FORMAT.format(calendar.getTime()));
+		assertEquals(dResponse.getStatusCode().value(), HttpStatus.OK.value());
+		assertTrue(dResponse.getBody().equals(2079.78));
 	}
 
 }

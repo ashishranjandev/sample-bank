@@ -44,7 +44,7 @@ public class TransactionRequest {
 	private TransactionStatus transactionStatus;
 	
 	@Column(name = "AMOUNT")
-	private Integer amount;
+	private Double amount;
 
 	public Integer getTransactionId() {
 		return transactionId;
@@ -110,11 +110,11 @@ public class TransactionRequest {
 		this.beneficiaryId = beneficiaryId;
 	}
 
-	public Integer getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(Integer amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 	
