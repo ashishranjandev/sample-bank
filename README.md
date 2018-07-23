@@ -2,15 +2,25 @@
 
 A sample bank application with basic features
 
-a. Create account
-b. Get balance info & transaction summary
-c. Add/Delete beneficiary
-d. Transfer funds instant and schedule for given date and time
-e. Calculate balance for user account for future date, given base interest rate of 4%
+* Create account
+* Get balance info & transaction summary
+* Add/Delete beneficiary
+* Transfer funds instant and schedule for given date and time
+* Calculate balance for user account for future date, given base interest rate of 4%
+
+### Prerequisites
+
+```
+Java 8
+```
 
 ### Code Structure
 
 This application uses the parent spring-boot-starter-parent to manage dependencies and other shared maven configurations.
+
+## Running Tests
+
+E2E test are mentioned in Class: org.sample.bank.samplebank.integration.SampleBankApplicationTests
 
 ### Runtime
 
