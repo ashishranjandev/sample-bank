@@ -17,6 +17,16 @@ public class AccountDTO {
 
 	@Min(500)
 	private Integer balance;
+	
+	public AccountDTO() {}
+
+	public AccountDTO(Integer accountNumber, String name, String address, Integer balance) {
+		super();
+		this.accountNumber = accountNumber;
+		this.name = name;
+		this.address = address;
+		this.balance = balance;
+	}
 
 	public Integer getAccountNumber() {
 		return accountNumber;

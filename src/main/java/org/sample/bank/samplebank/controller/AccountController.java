@@ -6,10 +6,12 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.sample.bank.samplebank.dto.AccountDTO;
+import org.sample.bank.samplebank.dto.AccountTransactionDTO;
 import org.sample.bank.samplebank.dto.BeneficiaryDTO;
 import org.sample.bank.samplebank.dto.TransactionRequestDTO;
 import org.sample.bank.samplebank.service.AccountsService;
 import org.sample.bank.samplebank.service.TransactionService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +52,7 @@ public class AccountController {
 	}
 	
 	@GetMapping("/{accountNumber}/beneficiaries")
-	public ResponseEntity<List<BeneficiaryDTO>> createBeneficiary(
+	public ResponseEntity<List<BeneficiaryDTO>> getBeneficiary(
 			@PathVariable Integer accountNumber) {
 		List<BeneficiaryDTO> beneficiaries = accountsService.getBeneficiaries(accountNumber);
 		return new ResponseEntity<List<BeneficiaryDTO>>(beneficiaries, HttpStatus.OK);
@@ -85,6 +87,20 @@ public class AccountController {
 			return new ResponseEntity<TransactionRequestDTO>(savedTrDTO.get(), HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<TransactionRequestDTO>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	@GetMapping("/{accountNumber}/transactionrequests")
+	public ResponseEntity<AccountTransactionDTO> getAccountWithTransactionRequests(
+			@PathVariable Integer accountNumber) {
+		Optional<AccountDTO> savedAccountDTO =  accountsService.getAccount(accountNumber);
+		if(savedAccountDTO.isPresent()) {
+			AccountTransactionDTO atDTO = new AccountTransactionDTO(); 
+			BeanUtils.copyProperties(savedAccountDTO.get(), atDTO);
+			atDTO.setTransactionRequests(transactionService.getTransactionRequests(accountNumber));
+			return new ResponseEntity<AccountTransactionDTO>(atDTO, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<AccountTransactionDTO>(HttpStatus.NOT_FOUND);
 		}
 	}
 	

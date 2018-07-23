@@ -13,6 +13,15 @@ public class BeneficiaryDTO {
 	
 	@NotNull
 	private String bankIdentificationCode;
+	
+	public BeneficiaryDTO() {}
+
+	public BeneficiaryDTO(Integer beneficiaryId, Integer beneficiaryAccountNumber, String bankIdentificationCode) {
+		super();
+		this.beneficiaryId = beneficiaryId;
+		this.beneficiaryAccountNumber = beneficiaryAccountNumber;
+		this.bankIdentificationCode = bankIdentificationCode;
+	}
 
 	public Integer getBeneficiaryId() {
 		return beneficiaryId;

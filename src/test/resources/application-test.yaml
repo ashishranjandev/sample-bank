@@ -9,4 +9,4 @@ spring:
       dialect: org.hibernate.dialect.H2Dialect
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create-drop

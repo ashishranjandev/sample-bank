@@ -33,6 +33,23 @@ public class TransactionRequestDTO {
 	
 	@NotNull
 	private Integer amount;
+	
+	public TransactionRequestDTO() {}
+	
+	public TransactionRequestDTO(Integer transactionId, Integer accountNumber, Integer beneficiaryId,
+			Timestamp createdTime, Timestamp scheduledTime, String description, Boolean isInstant,
+			TransactionStatus transactionStatus, Integer amount) {
+		super();
+		this.transactionId = transactionId;
+		this.accountNumber = accountNumber;
+		this.beneficiaryId = beneficiaryId;
+		this.createdTime = createdTime;
+		this.scheduledTime = scheduledTime;
+		this.description = description;
+		this.isInstant = isInstant;
+		this.transactionStatus = transactionStatus;
+		this.amount = amount;
+	}
 
 	public Integer getTransactionId() {
 		return transactionId;
