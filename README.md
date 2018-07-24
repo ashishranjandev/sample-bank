@@ -18,7 +18,7 @@ Java 8
 
 This application uses the parent spring-boot-starter-parent to manage dependencies and other shared maven configurations.
 
-## Running Tests
+### Running Tests
 
 E2E test are mentioned in Class: org.sample.bank.samplebank.integration.SampleBankApplicationTests
 
@@ -36,11 +36,17 @@ The Core functionalities are exposed as Rest End points.
 	- Get Account [GET] http://<host>:<port>/accounts/{accountNumber}
 		[Returns the Account Details]
 	- Create Beneficiary [POST] http://<host>:<port>/accounts/{accountNumber}/beneficiaries
-		[Expects: {"name" : "John","address" : "SF","balance" : 900}]
+		[Expects: {"beneficiaryAccountNumber" : 7882,"bankIdentificationCode" : "IFSC2121"}]
 		[Returns the created Beneficiary]
 	- Get Beneficiaries [GET] http://<host>:<port>/accounts/{accountNumber}/beneficiaries
 		[Returns the Beneficiaries of the account]
-	- Delete Beneficiaries [DELETE] http://<host>:<port>/accounts/{accountNumber}/beneficiaries/{beneficaryId}
+	- Create Transaction Request [POST] http://<host>:<port>/accounts/{accountNumber}/transactionrequests
+		[Expects Transcation Request {"beneficiaryId": 11, "isInstant": true, "amount": 200.00, "scheduledTime": null}]
+		[Returns Created Transcation Request]
+	- Get Transaction Request [POST] http://<host>:<port>/accounts/{accountNumber}/transactionrequests
+		[Returns Transcation Requests]
+	- Delete Beneficiaries 
+		[DELETE] http://<host>:<port>/accounts/{accountNumber}/beneficiaries/{beneficaryId}
 	- Get Balance for Future Date [GET] http://<host>:<port>/accounts/{accountNumber}/balance
 		[Request Param dateStr to be providede in DD-MM-YYYY format i.e. 25-07-2019]
 		

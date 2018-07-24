@@ -30,6 +30,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller Class for all Account related calls
+ * <ul>
+ * 	<li> Create Account </li>
+ * 	<li> Get Account </li>
+ *  <li> Create Beneficiary</li>
+ *  <li> Get Beneficiary</li>
+ *  <li> Delete Beneficiary</li>
+ *  <li> Create transaction request</li>
+ *  <li> Get transaction requests</li>
+ *  <li> Get Future Balance</li>
+ * </ul
+ * 
+ * @author Ashish
+ *
+ */
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
@@ -40,6 +56,11 @@ public class AccountController {
 	
 	@Autowired private TransactionService transactionService;
 	
+	/**
+	 * Controller Method to Create Account
+	 * @param accountDTO
+	 * @return
+	 */
 	@PostMapping("/")
 	public ResponseEntity<AccountDTO> createAccount(@RequestBody @Valid AccountDTO accountDTO) {
 		log.info("Received account creation request with Name : {} ", accountDTO.getName());
@@ -51,6 +72,11 @@ public class AccountController {
 		}
 	}
 	
+	/**
+	 * Controller Method to get Account Number
+	 * @param accountNumber
+	 * @return
+	 */
 	@GetMapping("/{accountNumber}")
 	public ResponseEntity<AccountDTO> getAccount(@PathVariable Integer accountNumber) {
 		log.info("Received get account details request with acc number : {} ", accountNumber);
@@ -62,6 +88,11 @@ public class AccountController {
 		}
 	}
 	
+	/**
+	 * Controller Method to get beneficiary
+	 * @param accountNumber
+	 * @return
+	 */
 	@GetMapping("/{accountNumber}/beneficiaries")
 	public ResponseEntity<List<BeneficiaryDTO>> getBeneficiary(
 			@PathVariable Integer accountNumber) {
@@ -70,6 +101,12 @@ public class AccountController {
 		return new ResponseEntity<List<BeneficiaryDTO>>(beneficiaries, HttpStatus.OK);
 	}
 	
+	/**
+	 * Controller Method to 
+	 * @param accountNumber
+	 * @param beneficiaryId
+	 * @return
+	 */
 	@DeleteMapping("/{accountNumber}/beneficiaries/{beneficiaryId}")
 	public ResponseEntity<String> deleteBeneficiary(
 			@PathVariable Integer accountNumber, @PathVariable Integer beneficiaryId) {
@@ -79,6 +116,12 @@ public class AccountController {
 		return new ResponseEntity<String>(HttpStatus.OK);
 	}
 	
+	/**
+	 * Controller Method to create beneficiary
+	 * @param accountNumber
+	 * @param beneficiaryDTO
+	 * @return
+	 */
 	@PostMapping("/{accountNumber}/beneficiaries")
 	public ResponseEntity<BeneficiaryDTO> createBeneficiary(
 			@PathVariable Integer accountNumber,
@@ -91,6 +134,12 @@ public class AccountController {
 		}
 	}
 	
+	/**
+	 * Controller Method to create transaction requests
+	 * @param accountNumber
+	 * @param transactionRequestDTO
+	 * @return
+	 */
 	@PostMapping("/{accountNumber}/transactionrequests")
 	public ResponseEntity<TransactionRequestDTO> createTransactionRequest(
 			@PathVariable Integer accountNumber,
@@ -104,6 +153,11 @@ public class AccountController {
 		}
 	}
 	
+	/**
+	 * Controller Method to Get Transaction Requests
+	 * @param accountNumber
+	 * @return
+	 */
 	@GetMapping("/{accountNumber}/transactionrequests")
 	public ResponseEntity<AccountTransactionDTO> getAccountWithTransactionRequests(
 			@PathVariable Integer accountNumber) {
@@ -118,6 +172,12 @@ public class AccountController {
 		}
 	}
 	
+	/**
+	 * Controller Method to Get Future Balance
+	 * @param accountNumber
+	 * @param dateStr
+	 * @return
+	 */
 	@GetMapping("/{accountNumber}/balance")
 	public ResponseEntity<Double> getFutureBalance(
 			@PathVariable Integer accountNumber, @RequestParam String dateStr) {
